@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Şirket Skor Hesaplama</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Şirket Güvenilirlik Skoru Hesaplama</h1>
+        </header>
+
+        <main>
+            <div class="calculation-form">
+                <!-- Sektör Seçimi -->
+                <div class="form-section">
+                    <h2>1. Sektör Bilgileri</h2>
+                    <div class="input-group">
+                        <label for="sektor">Ana Sektör:</label>
+                        <select id="sektor" required>
+                            <option value="">Sektör Seçiniz</option>
+                            <option value="tarim">Tarım</option>
+                            <option value="maden">Maden</option>
+                            <!-- Diğer sektörler eklenecek -->
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="altsektor">Alt Sektör:</label>
+                        <select id="altsektor" required>
+                            <option value="">Önce Ana Sektör Seçiniz</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Çalışan Sayısı -->
+                <div class="form-section">
+                    <h2>2. Şirket Bilgileri</h2>
+                    <div class="input-group">
+                        <label for="calisan">Çalışan Sayısı:</label>
+                        <input type="number" id="calisan" min="1" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="yas">Şirket Yaşı:</label>
+                        <input type="number" id="yas" min="0" step="0.1" required>
+                    </div>
+                </div>
+
+                <!-- Ülke Seçimi -->
+                <div class="form-section">
+                    <h2>3. Ülke Bilgisi</h2>
+                    <div class="input-group">
+                        <label for="ulke">Ülke:</label>
+                        <select id="ulke" required>
+                            <option value="">Ülke Seçiniz</option>
+                            <!-- Ülkeler JavaScript ile doldurulacak -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Müşteri Durumu -->
+                <div class="form-section">
+                    <h2>4. Müşteri Durumu</h2>
+                    <div class="input-group">
+                        <label>Müşteri Durumu:</label>
+                        <div class="radio-group">
+                            <input type="radio" id="musteri_evet" name="musteri" value="evet">
+                            <label for="musteri_evet">Evet</label>
+                            <input type="radio" id="musteri_hayir" name="musteri" value="hayir">
+                            <label for="musteri_hayir">Hayır</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Finansal Veriler -->
+                <div class="form-section">
+                    <h2>5. Finansal Veriler</h2>
+                    <div class="input-group">
+                        <label for="toplamVarlik">Toplam Varlık:</label>
+                        <input type="number" id="toplamVarlik" min="0" step="0.01" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="netSermaye">Net Sermaye:</label>
+                        <input type="number" id="netSermaye" min="0" step="0.01" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="dagitilmamisKar">Dağıtılmamış Kar:</label>
+                        <input type="number" id="dagitilmamisKar" min="0" step="0.01" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="satislar">Satışlar:</label>
+                        <input type="number" id="satislar" min="0" step="0.01" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="calismaSermayesi">Çalışma Sermayesi:</label>
+                        <input type="number" id="calismaSermayesi" min="0" step="0.01" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="faizOncesiKar">Faiz Öncesi Kar:</label>
+                        <input type="number" id="faizOncesiKar" min="0" step="0.01" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="vergiOncesiKar">Vergi Öncesi Kar:</label>
+                        <input type="number" id="vergiOncesiKar" min="0" step="0.01" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="kisaVadeliYukumlulukler">Kısa Vadeli Yükümlülükler:</label>
+                        <input type="number" id="kisaVadeliYukumlulukler" min="0" step="0.01" required>
+                    </div>
+                </div>
+
+                <button type="submit" id="hesapla">Hesapla</button>
+            </div>
+
+            <!-- Sonuç Bölümü -->
+            <div class="results" id="sonuclar" style="display: none;">
+                <h2>Sonuçlar</h2>
+                <div class="score-card">
+                    <div class="score-details">
+                        <div class="score-item">
+                            <span>Sektör Puanı:</span>
+                            <span id="sektor-skor">0.00</span>
+                        </div>
+                        <div class="score-item">
+                            <span>Alt Sektör Puanı:</span>
+                            <span id="altsektor-skor">0.00</span>
+                        </div>
+                        <div class="score-item">
+                            <span>Çalışan Puanı:</span>
+                            <span id="calisan-skor">0.00</span>
+                        </div>
+                        <div class="score-item">
+                            <span>Şirket Yaşı Puanı:</span>
+                            <span id="yas-skor">0.00</span>
+                        </div>
+                        <div class="score-item">
+                            <span>Ülke Puanı:</span>
+                            <span id="ulke-skor">0.00</span>
+                        </div>
+                        <div class="score-item">
+                            <span>Müşteri Durumu Puanı:</span>
+                            <span id="musteri-skor">0.00</span>
+                        </div>
+                    </div>
+                    <div class="final-scores">
+                        <div class="score-item">
+                            <span>Finansal Skor:</span>
+                            <span id="finansal-skor">0.00</span>
+                        </div>
+                        <div class="score-item">
+                            <span>Diğer Parametreler:</span>
+                            <span id="diger-skor">0.00</span>
+                        </div>
+                        <div class="score-item total">
+                            <span>TOPLAM SKOR:</span>
+                            <span id="toplam-skor">0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html> 

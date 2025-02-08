@@ -391,13 +391,13 @@ def main():
     degisken5 = ((faizOncesiKar / toplamVarlik) * 2.33)
     degisken6 = ((vergiOncesiKar / kisaVadeliYukumlulukler) * 0.66)
 
-    finansal_skor = (degisken1 + degisken2 + degisken3 + degisken4 + degisken5 + degisken6) * 25
+    finansal_skor = (degisken1 + degisken2 + degisken3 + degisken4 + degisken5 + degisken6) 
 
     # Diğer parametrelerin toplamı
     diger_parametreler = (sektor_puan + alt_sektor_puan + calisan_puan + yas_puan + ulke_puan + musteri_puan + buyume_puan)
 
     # Toplam skor hesaplama
-    toplam_skor = finansal_skor + diger_parametreler
+    toplam_skor = finansal_skor * diger_parametreler
 
     # Sonuçların gösterilmesi
     print("\n=== SONUÇLAR ===")
