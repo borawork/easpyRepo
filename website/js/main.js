@@ -331,7 +331,7 @@ function getCalisanPuani(sektor, calisanSayisi) {
         if (calisanSayisi >= 301 && calisanSayisi <= 500) return 3.0;
         if (calisanSayisi >= 501) return 4.0;
     }
-    else if (["iletisim", "bilgi"].includes(sektor)) {
+    else if (["bilgi_iletisim"].includes(sektor)) {
         if (calisanSayisi >= 1 && calisanSayisi <= 200) return 1.0;
         if (calisanSayisi >= 201 && calisanSayisi <= 1000) return 2.0;
         if (calisanSayisi >= 1001 && calisanSayisi <= 2000) return 3.0;
@@ -370,9 +370,6 @@ function hesapla() {
     const musteriPuan = musteriDurumu === 'evet' ? 1.0 : 0.0;
     const buyumePuan = 2.5;
 
-    // Diğer parametreler toplamı (maksimum 25 puan)
-    const digerParametreler = (sektorPuan + altSektorPuan + calisanPuan + yasPuan + ulkePuan + musteriPuan + buyumePuan);
-
     // Finansal veriler
     const toplamVarlik = parseFloat(document.getElementById('toplamVarlik').value);
     const netSermaye = parseFloat(document.getElementById('netSermaye').value);
@@ -391,7 +388,14 @@ function hesapla() {
     const degisken5 = ((faizOncesiKar / toplamVarlik) * 2.33);
     const degisken6 = ((vergiOncesiKar / kisaVadeliYukumlulukler) * 0.66);
 
-    const finansalSkor = (degisken1 + degisken2 + degisken3 + degisken4 + degisken5 + degisken6);
+    // Finansal skoru hesapla ve 4.0 ile sınırla
+    let finansalSkor = (degisken1 + degisken2 + degisken3 + degisken4 + degisken5 + degisken6);
+    finansalSkor = Math.min(finansalSkor, 4.0);
+
+    // Diğer parametreler toplamı (maksimum 25 puan)
+    const digerParametreler = (sektorPuan + altSektorPuan + calisanPuan + yasPuan + ulkePuan + musteriPuan + buyumePuan);
+    
+    // Toplam skor (maksimum 100 puan: 4.0 x 25)
     const toplamSkor = finansalSkor * digerParametreler;
 
     // Sonuç metnini oluştur
@@ -468,7 +472,7 @@ function getCalisanPuani(sektor, calisanSayisi) {
         if (calisanSayisi >= 301 && calisanSayisi <= 500) return 3.0;
         if (calisanSayisi >= 501) return 4.0;
     }
-    else if (["iletisim", "bilgi"].includes(sektor)) {
+    else if (["bilgi_iletisim"].includes(sektor)) {
         if (calisanSayisi >= 1 && calisanSayisi <= 200) return 1.0;
         if (calisanSayisi >= 201 && calisanSayisi <= 1000) return 2.0;
         if (calisanSayisi >= 1001 && calisanSayisi <= 2000) return 3.0;
